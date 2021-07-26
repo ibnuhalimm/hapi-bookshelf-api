@@ -1,5 +1,6 @@
 const createBook = require('../services/book/create-book');
 const getAllBook = require('../services/book/get-all-book');
+const getDetailBook = require('../services/book/get-detail-book');
 
 const routes = [
     {
@@ -16,6 +17,11 @@ const routes = [
         method: 'GET',
         path: '/books',
         handler: getAllBook,
+    },
+    {
+        method: 'GET',
+        path: '/books/{id}',
+        handler: getDetailBook,
     },
 ];
 
