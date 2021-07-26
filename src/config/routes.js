@@ -1,4 +1,5 @@
-const createBookHandler = require('../services/book/createBookHandler');
+const createBook = require('../services/book/create-book');
+const getAllBook = require('../services/book/get-all-book');
 
 const routes = [
     {
@@ -9,7 +10,12 @@ const routes = [
     {
         method: 'POST',
         path: '/books',
-        handler: createBookHandler,
+        handler: createBook,
+    },
+    {
+        method: 'GET',
+        path: '/books',
+        handler: getAllBook,
     },
 ];
 

@@ -1,7 +1,7 @@
 const {nanoid} = require('nanoid');
 const books = require('./books');
 
-const createBookHandler = (request, h) => {
+const createBook = (request, h) => {
     const {
         name = '',
         year,
@@ -81,4 +81,4 @@ const createBookHandler = (request, h) => {
     return response;
 };
 
-module.exports = createBookHandler;
+module.exports = createBook;
