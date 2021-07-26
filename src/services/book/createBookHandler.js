@@ -3,7 +3,7 @@ const books = require('./books');
 
 const createBookHandler = (request, h) => {
     const {
-        name,
+        name = '',
         year,
         author,
         summary,
@@ -22,7 +22,7 @@ const createBookHandler = (request, h) => {
         finished = true;
     }
 
-    if (name.trim() === '') {
+    if (name === undefined || name.trim() === '') {
         const response = h.response({
             status: 'fail',
             message: 'Gagal menambahkan buku. Mohon isi nama buku',
