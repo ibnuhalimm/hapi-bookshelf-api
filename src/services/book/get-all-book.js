@@ -4,8 +4,13 @@ const getAllBook = (request, h) => {
     const { reading } = request.query;
 
     let filteredBooks = books;
-    if (reading == 1) {
+
+    if (reading && reading == 1) {
         filteredBooks = books.filter((book) => book.reading === true);
+    }
+
+    if (reading && reading == 0) {
+        filteredBooks = books.filter((book) => book.reading === false);
     }
 
     const bookData = filteredBooks.map((book) => {
@@ -21,6 +26,7 @@ const getAllBook = (request, h) => {
         data: {
             books: bookData,
         },
+        reading: reading,
     });
     response.code(200);
 
