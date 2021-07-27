@@ -1,9 +1,33 @@
-const {nanoid} = require('nanoid');
+const { nanoid } = require('nanoid');
+const bookSchema = require('./book-schema');
 const books = require('./books');
 
 const createBook = (request, h) => {
+    const { error, value } = bookSchema.validate(request.payload, { allowUnknown: true });
+    if (error) {
+        const errorDetails = error.details[0];
+        const { key: fieldName } = errorDetails.context;
+
+        let responseMessage = error.message;
+        if (fieldName === 'name') {
+            responseMessage = 'Gagal menambahkan buku. Mohon isi nama buku';
+        }
+
+        if (fieldName === 'readPage') {
+            responseMessage = 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount';
+        }
+
+        const response = h.response({
+            status: 'fail',
+            message: responseMessage,
+        });
+        response.code(400);
+
+        return response;
+    }
+
     const {
-        name = '',
+        name,
         year,
         author,
         summary,
@@ -20,26 +44,6 @@ const createBook = (request, h) => {
     let finished = false;
     if (pageCount === readPage) {
         finished = true;
-    }
-
-    if (name === undefined || name.trim() === '') {
-        const response = h.response({
-            status: 'fail',
-            message: 'Gagal menambahkan buku. Mohon isi nama buku',
-        });
-        response.code(400);
-
-        return response;
-    }
-
-    if (parseInt(readPage) > parseInt(pageCount)) {
-        const response = h.response({
-            status: 'fail',
-            message: 'Gagal menambahkan buku. readPage tidak boleh lebih besar dari pageCount',
-        });
-        response.code(400);
-
-        return response;
     }
 
     books.push({
