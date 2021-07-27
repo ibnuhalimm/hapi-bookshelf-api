@@ -1,7 +1,7 @@
 const books = require('./books');
 
 const getAllBook = (request, h) => {
-    const { reading } = request.query;
+    const { reading, finished } = request.query;
 
     let filteredBooks = books;
 
@@ -11,6 +11,14 @@ const getAllBook = (request, h) => {
 
     if (reading && reading == 0) {
         filteredBooks = books.filter((book) => book.reading === false);
+    }
+
+    if (finished && finished == 1) {
+        filteredBooks = books.filter((book) => book.finished === true);
+    }
+
+    if (finished && finished == 0) {
+        filteredBooks = books.filter((book) => book.finished === false);
     }
 
     const bookData = filteredBooks.map((book) => {
