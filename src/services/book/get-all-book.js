@@ -26,7 +26,6 @@ const getAllBook = (request, h) => {
         data: {
             books: bookData,
         },
-        reading: reading,
     });
     response.code(200);
 
