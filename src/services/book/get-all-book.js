@@ -1,7 +1,7 @@
 const books = require('./books');
 
 const getAllBook = (request, h) => {
-    const { reading, finished } = request.query;
+    const { reading, finished, name } = request.query;
 
     let filteredBooks = books;
 
@@ -19,6 +19,13 @@ const getAllBook = (request, h) => {
 
     if (finished && finished == 0) {
         filteredBooks = books.filter((book) => book.finished === false);
+    }
+
+    if (name) {
+        filteredBooks = books.filter((book) => {
+            const lowerName = book.name.toLowerCase();
+            return lowerName.match(name.toLowerCase());
+        });
     }
 
     const bookData = filteredBooks.map((book) => {
