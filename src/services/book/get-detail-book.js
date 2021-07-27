@@ -1,7 +1,7 @@
 const books = require('./books');
 
 const getDetailBook = (request, h) => {
-    const {id} = request.params;
+    const { id } = request.params;
     const book = books.filter((book) => book.id === id)[0];
 
     if (book !== undefined) {
